@@ -38,8 +38,7 @@ public class UserInfoDao {
 		}
 		
 	}
-	
-	
+
 	public UserInfo saveStaff(UserInfo userInfo)
 	{
 		return userInfoRepository.save(userInfo);

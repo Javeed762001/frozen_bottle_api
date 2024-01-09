@@ -11,4 +11,7 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, Integer>{
 
 	@Query("SELECT u FROM  UserInfo u WHERE u.role=?1")
 	List<UserInfo> checkManager(Role role);
+	
+	@Query("SELECT u FROM  UserInfo u WHERE u.email=?1 AND u.password=?2")
+	UserInfo validateManager(String email,String password);
 }
