@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ty.frozen_bottle_api.util.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class FoodOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String status;
+	private Status status;
 	double totalPrice;
 	
 	@CreationTimestamp
@@ -30,7 +31,6 @@ public class FoodOrder {
 	private LocalDateTime orderDeliveryTime;
 	
 	private String customerName;
-	private long contactNumber;
 	
 	@JsonIgnore
 	@OneToMany
@@ -44,11 +44,13 @@ public class FoodOrder {
 		this.id = id;
 	}
 
-	public String getStatus() {
+	
+
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -84,13 +86,6 @@ public class FoodOrder {
 		this.customerName = customerName;
 	}
 
-	public long getContactNumber() {
-		return contactNumber;
-	}
-
-	public void setContactNumber(long contactNumber) {
-		this.contactNumber = contactNumber;
-	}
 
 	public List<Item> getItems() {
 		return items;

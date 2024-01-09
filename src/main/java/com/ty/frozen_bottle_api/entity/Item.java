@@ -1,9 +1,12 @@
 package com.ty.frozen_bottle_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Item {
@@ -17,6 +20,16 @@ public class Item {
 	private int quantity;
 	private double price;
 	
+	@JsonIgnore
+	@ManyToOne
+	private UserInfo user;
+	
+	public UserInfo getUser() {
+		return user;
+	}
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
 	public int getId() {
 		return id;
 	}

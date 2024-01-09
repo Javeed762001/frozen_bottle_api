@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ty.frozen_bottle_api.entity.FoodProducts;
 import com.ty.frozen_bottle_api.entity.UserInfo;
+import com.ty.frozen_bottle_api.repository.FoodProductsRepository;
 import com.ty.frozen_bottle_api.repository.UserInfoRepository;
 import com.ty.frozen_bottle_api.util.Role;
 
@@ -36,27 +38,14 @@ public class UserInfoDao {
 		}
 		
 	}
+
+	public UserInfo saveStaff(UserInfo userInfo)
+	{
+		return userInfoRepository.save(userInfo);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public UserInfo saveCustomer(UserInfo userInfo)
+	{
+		return userInfoRepository.save(userInfo);
+	}
 }
