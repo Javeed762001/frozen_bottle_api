@@ -37,11 +37,14 @@ public class MenuService {
 	@Autowired
 	private MenuRepository menuRepository;
 	
-	public ResponseEntity<ResponseStructure<Menu>> saveMenu(Menu menu)
+	public ResponseEntity<ResponseStructure<Menu>> saveMenu(Menu menu,String email,String password)
 	{
 
+		UserInfo userInfo=userInfoRepository.validateManager(email, password);
         List<UserInfo> managerlist=userInfoRepository.checkManager(Role.MANAGER);
        
+        if(userInfo!=null)
+        {
 		if(managerlist.size()!=0)
 		{
 			
@@ -63,12 +66,25 @@ public class MenuService {
 			
 			return new ResponseEntity<ResponseStructure<Menu>>(responseStucture,HttpStatus.NOT_FOUND);
 		}
+        }
+        else
+        {
+        	ResponseStructure<Menu> responseStucture = new ResponseStructure<>();
+			responseStucture.setStatusCode(HttpStatus.NOT_FOUND.value());
+			responseStucture.setMessage("YOU ARE NOT MANAGER");
+			responseStucture.setData(null);
+			
+			return new ResponseEntity<ResponseStructure<Menu>>(responseStucture,HttpStatus.NOT_FOUND);
+        }
 	}
 
-	public ResponseEntity<ResponseStructure<Menu>> UpdateMenu(int id) {
+	public ResponseEntity<ResponseStructure<Menu>> UpdateMenu(int id,String email,String password) {
 		
+		UserInfo userInfo=userInfoRepository.validateManager(email, password);
 		List<UserInfo> managerlist=userInfoRepository.checkManager(Role.MANAGER);
-	       
+	     
+	   if(userInfo!=null)
+	   {
 		if(managerlist.size()!=0)
 		{
 			Optional<Menu> m=menuRepository.findById(id);
@@ -104,17 +120,29 @@ public class MenuService {
 			
 			return new ResponseEntity<ResponseStructure<Menu>>(responseStucture,HttpStatus.NOT_FOUND);
 		}
+	   }
+	   else
+       {
+       	ResponseStructure<Menu> responseStucture = new ResponseStructure<>();
+			responseStucture.setStatusCode(HttpStatus.NOT_FOUND.value());
+			responseStucture.setMessage("YOU ARE NOT MANAGER");
+			responseStucture.setData(null);
+			
+			return new ResponseEntity<ResponseStructure<Menu>>(responseStucture,HttpStatus.NOT_FOUND);
+       }
+	   
 	}
 
 
-	public ResponseEntity<ResponseStructure<Menu>> addFoodProductToMenu(FoodProducts foodProduct, int id) {
+	public ResponseEntity<ResponseStructure<Menu>> addFoodProductToMenu(FoodProducts foodProduct, int id, String email,String password) {
 		
+		UserInfo userInfo=userInfoRepository.validateManager(email, password);
 		List<UserInfo> managerlist=userInfoRepository.checkManager(Role.MANAGER);
-	       
+	      
+	  if(userInfo!=null)
+	 {
 		if(managerlist.size()!=0)
 		{
-			
-			
 			
 			Optional<Menu> m=menuRepository.findById(id);
 			Menu menu=m.get();
@@ -146,5 +174,17 @@ public class MenuService {
 			
 			return new ResponseEntity<ResponseStructure<Menu>>(responseStucture,HttpStatus.NOT_FOUND);
 		}
+	
 	}
+	  else
+      {
+      	ResponseStructure<Menu> responseStucture = new ResponseStructure<>();
+			responseStucture.setStatusCode(HttpStatus.NOT_FOUND.value());
+			responseStucture.setMessage("YOU ARE NOT MANAGER");
+			responseStucture.setData(null);
+			
+			return new ResponseEntity<ResponseStructure<Menu>>(responseStucture,HttpStatus.NOT_FOUND);
+      }
+	}
+	  
 }

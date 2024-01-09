@@ -23,22 +23,22 @@ public class MenuController {
 	
 	
 	
-	@PostMapping("/savemenu")
-	public ResponseEntity<ResponseStructure<Menu>> saveMenu(@RequestBody Menu menu)
+	@PostMapping("/savemenu/{email}/{password}")
+	public ResponseEntity<ResponseStructure<Menu>> saveMenu(@RequestBody Menu menu,@PathVariable String email,@PathVariable String password)
 	{
-		return menuService.saveMenu(menu);
+		return menuService.saveMenu(menu,email,password);
 	}
 	
-	@PutMapping("/updatemenu/{id}")
-	public ResponseEntity<ResponseStructure<Menu>> UpdateMenu(@PathVariable int id)
+	@PutMapping("/updatemenu/{id}/{email}/{password}")
+	public ResponseEntity<ResponseStructure<Menu>> UpdateMenu(@PathVariable int id,@PathVariable String email,@PathVariable String password)
 	{
-		return menuService.UpdateMenu(id);
+		return menuService.UpdateMenu(id,email,password);
 	}
 	
-	@PutMapping("/addfoodproductmenu/{id}")
-	public ResponseEntity<ResponseStructure<Menu>> addFoodProductToMenu(@RequestBody FoodProducts foodProduct,@PathVariable int id)
+	@PutMapping("/addfoodproductmenu/{id}/{email}/{password}")
+	public ResponseEntity<ResponseStructure<Menu>> addFoodProductToMenu(@RequestBody FoodProducts foodProduct,@PathVariable int id,@PathVariable String email,@PathVariable String password)
 	{
-		return menuService.addFoodProductToMenu(foodProduct,id);
+		return menuService.addFoodProductToMenu(foodProduct,id,email,password);
 	}
 	
 	
